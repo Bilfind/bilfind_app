@@ -190,22 +190,18 @@ class _AuthenticatedAppBarState extends State<AuthenticatedAppBar> {
   }
 
   Widget getNarrowLayoutBottom() {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 24.0),
-      child: Column(
-        children: [
-          SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
+    double sidePadding = 8;
+
+    return Column(
+      children: [
+        SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          child: Container(
+            constraints: BoxConstraints(minWidth: MediaQuery.of(context).size.width),
+            padding: EdgeInsets.symmetric(horizontal: sidePadding),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const Row(
-                  children: [
-                    MessagesButton(),
-                    SizedBox(width: 8),
-                    NotificationsButton(),
-                  ],
-                ),
                 Row(
                   children: [
                     const CreatePostButton(),
@@ -215,12 +211,20 @@ class _AuthenticatedAppBarState extends State<AuthenticatedAppBar> {
                         : const CircularProgressIndicator(),
                   ],
                 ),
+                const Row(
+                  children: [
+                    MessagesButton(),
+                  ],
+                )
               ],
             ),
           ),
-          widget.searchBar == null ? Container() : widget.searchBar!
-        ],
-      ),
+        ),
+        widget.searchBar == null ? Container() : Padding(
+          padding: EdgeInsets.symmetric(horizontal: sidePadding),
+          child: widget.searchBar!,
+        )
+      ],
     );
   }
 
